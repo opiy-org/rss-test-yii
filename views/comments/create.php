@@ -11,13 +11,13 @@ use yii\widgets\ActiveForm;
 <div class="comments-create">
 
     <?php $form = ActiveForm::begin([
-        'id' => 'cf'.uniqid(),
+        'id' => 'cf' . uniqid(),
         'method' => 'post',
         'enableAjaxValidation' => true,
         'validationUrl' => Url::toRoute('comments/validate'),
     ]); ?>
 
-    <?= $form->field($model, 'guid')->hiddenInput(['class'=>'guid'])->label(false) ?>
+    <?= $form->field($model, 'guid')->hiddenInput(['class' => 'guid'])->label(false) ?>
     <?= $form->field($model, 'email') ?>
     <?= $form->field($model, 'description')->textarea() ?>
 
