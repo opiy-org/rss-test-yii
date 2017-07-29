@@ -30,3 +30,7 @@ tests/_output/*
 tests/_support/_generated
 
 .env
+_ide_helper.php
+
+
+web/cgi-bin/

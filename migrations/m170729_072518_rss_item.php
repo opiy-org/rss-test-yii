@@ -49,7 +49,7 @@ class m170729_072518_rss_item extends Migration
 
         $this->dropTable('rss_item');
 
-        return false;
+
     }
 
 }

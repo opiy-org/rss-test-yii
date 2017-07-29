@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea1b4f1785d2e1571ec33b92330e1c2c",
+    "content-hash": "cabb7d739322fb08aada9dfe7200b31d",
     "packages": [
         {
             "name": "asofter/yii2-imperavi-redactor",
@@ -1142,6 +1142,59 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "mis/yii2-ide-helper",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/takashiki/yii2-ide-helper.git",
+                "reference": "51b25fbad8b4be1ac056acc242b2e8c4193cf2e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/takashiki/yii2-ide-helper/zipball/51b25fbad8b4be1ac056acc242b2e8c4193cf2e4",
+                "reference": "51b25fbad8b4be1ac056acc242b2e8c4193cf2e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mis\\IdeHelper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "takashiki",
+                    "email": "857995137@qq.com"
+                }
+            ],
+            "description": "Yii2 IDE Helper, generates correct PHPDocs for all components, to improve auto-completion.",
+            "keywords": [
+                "autocomplete",
+                "codeintel",
+                "helper",
+                "ide",
+                "netbeans",
+                "phpdoc",
+                "phpstorm",
+                "sublime",
+                "yii2"
+            ],
+            "time": "2016-11-22T01:26:36+00:00"
         },
         {
             "name": "myclabs/deep-copy",
