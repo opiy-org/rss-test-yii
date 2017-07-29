@@ -2,13 +2,13 @@
 
 namespace app\controllers;
 
-use Yii;
-use yii\filters\AccessControl;
+use HttpException;
+use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
+use yii\httpclient\Client;
+use yii\httpclient\Response;
+use yii\httpclient\XmlParser;
 use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -38,14 +38,61 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $cachekey = 'rss_' . env('RSS_CHANNEL') . '_items';
+
+
+        /** @var array|bool $items */
+        $items = \Yii::$app->cache->get($cachekey);
+
+        if ($items === false) {
+            $items = array();
+
+            /** @var Response $response */
+            $response = (new Client())->createRequest()
+                ->setMethod('get')
+                ->setUrl(env('RSS_CHANNEL'))
+                ->send();
+            if (!$response->isOk) {
+                throw new HttpException(404, 'Channel not found');
+            }
+
+
+            /** @var array $data */
+            $data = (new XmlParser())->parse($response);
+            if (!isset($data['channel'])) {
+                throw new HttpException(400, 'Bad channel');
+            }
+
+            foreach ($data['channel'] as $key => $value) {
+                if ($key == 'item') {
+                    $items = $value;
+                }
+            }
+
+
+            \Yii::$app->cache->set($cachekey, $items, env('RSS_INTERVAL', 3600));
+        }
+
+
+        ArrayHelper::multisort($items, function ($item) {
+            return $item->pubDate;
+        }, SORT_DESC);
+
+        $dataprovider = new ArrayDataProvider([
+            'allModels' => $items,
+            'pagination' => [
+                'pageSize' => env('PAGE_SIZE'),
+            ],
+        ]);
+
+
+        return $this->render('index', [
+            'dataprovider' => $dataprovider,
+        ]);
     }
 
 

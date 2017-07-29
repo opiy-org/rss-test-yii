@@ -10,7 +10,7 @@ class m170729_075344_comment extends Migration
     {
         $this->createTable('comment', [
             'id' => $this->primaryKey(),
-            'guid' => $this->string,
+            'guid' => $this->string()->notNull(),
             'email' => $this->string()->notNull(),
             'description' => $this->text(),
             'created_at' => $this->dateTime(),
