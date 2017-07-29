@@ -10,29 +10,25 @@ class m170729_075344_comment extends Migration
     {
         $this->createTable('comment', [
             'id' => $this->primaryKey(),
-            'rss_item_id' => $this->integer()->notNull(),
+            'guid' => $this->string,
             'email' => $this->string()->notNull(),
             'description' => $this->text(),
             'created_at' => $this->dateTime(),
         ]);
 
 
-        // add foreign key for table `post`
-        $this->addForeignKey(
-            'fk-ri-comment-item_id',
+        $this->createIndex(
+            'idx-ri-guid',
             'comment',
-            'rss_item_id',
-            'rss_item',
-            'id',
-            'CASCADE'
+            'guid'
         );
 
     }
 
     public function down()
     {
-        $this->dropForeignKey(
-            'fk-ri-comment-item_id',
+        $this->dropIndex(
+            'idx-ri-guid',
             'comment'
         );
 
