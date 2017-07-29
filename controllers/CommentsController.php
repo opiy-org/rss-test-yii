@@ -1,22 +1,72 @@
 <?php
 
-namespace app\Controllers;
+namespace app\controllers;
 
-class CommentsController extends \yii\web\Controller
+use app\models\Comment;
+use Yii;
+use yii\bootstrap\ActiveForm;
+use yii\web\Controller;
+use yii\web\Response;
+
+class CommentsController extends Controller
 {
-    public function actionCreate()
+
+
+    /**
+     * validate new comment model
+     * @return array
+     */
+    public function actionValidate()
     {
-        return $this->render('create');
+        /** @var Comment $model */
+        $model = new Comment();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
     }
 
-    public function actionIndex()
+
+    /**
+     * Store new comment in db
+     * @param null|string $guid
+     * @return string
+     */
+    public function actionCreate($guid = null)
     {
-        return $this->render('index');
+        /** @var Comment $model */
+        $model = new Comment();
+
+        if ($guid != null) {
+            $model->guid = trim($guid);
+        }
+        $guid = $model->guid;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model = new Comment();
+            $model->guid = $guid;
+        }
+
+        return $this->renderAjax('create', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionView()
+    /**
+     * Returns list of comments to rss-item by guid
+     * @param $guid
+     * @return string
+     */
+    public function actionIndex($guid)
     {
-        return $this->render('view');
+        /** @var Comment $comments */
+        $comments = Comment::find()->where(['guid' => $guid])->orderBy(['id' => SORT_DESC])->all();
+
+        return $this->renderAjax('indexAjax', [
+            'comments' => $comments,
+        ]);
+
     }
+
 
 }

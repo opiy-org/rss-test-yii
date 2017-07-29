@@ -30,9 +30,9 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['guid', 'email'], 'required'],
+            [['guid', 'email', 'description'], 'required'],
             [['guid'], 'string', 'max' => 255],
-            [['description'], 'string'],
+            [['description'], 'string', 'min' => 4],
             [['created_at'], 'safe'],
 
             [['email'], 'string', 'max' => 255],

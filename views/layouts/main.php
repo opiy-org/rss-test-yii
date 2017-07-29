@@ -37,7 +37,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
         ],
     ]);
     NavBar::end();
@@ -62,4 +62,8 @@ AppAsset::register($this);
 <?php $this->endBody() ?>
 </body>
 </html>
+<?php
+$this->registerJsFile('/js/jquery.scrollTo.min.js', ['position' => yii\web\View::POS_END]);
+$this->registerJsFile('/js/main.js', ['position' => yii\web\View::POS_END]);
+?>
 <?php $this->endPage() ?>
