@@ -4,7 +4,8 @@
     "keywords": ["yii2", "rss", "comments", "test"],
     "type": "project",
     "license": "BSD-3-Clause",
-    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.5",
