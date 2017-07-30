@@ -25,7 +25,7 @@ $config = [
 
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
-            'showScriptName' => true,
+            'showScriptName' => false,
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'rules' => [

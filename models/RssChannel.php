@@ -14,12 +14,16 @@ use yii\httpclient\Response;
 use yii\httpclient\XmlParser;
 use yii\web\HttpException;
 
-class RssItem
+class RssChannel
 {
 
     public $cache = true;
 
-    public function getItems()
+    /**
+     * @return array
+     * @throws HttpException
+     */
+    public function getItems(): array
     {
         $cachekey = 'rss_' . env('RSS_CHANNEL') . '_items';
 
@@ -27,8 +31,8 @@ class RssItem
         /** @var array|bool $items */
         $items = \Yii::$app->cache->get($cachekey);
 
-        if ($items === false or $this->cache===false) {
-            $items = array();
+        if ($items === false or $this->cache === false) {
+            $items = [];
 
             /** @var Response $response */
             $response = (new Client())->createRequest()
@@ -39,18 +43,12 @@ class RssItem
                 throw new HttpException(404, 'Channel not found');
             }
 
-
             /** @var array $data */
             $data = (new XmlParser())->parse($response);
-            if (!isset($data['channel'])) {
+            if (!isset($data['channel']['item'])) {
                 throw new HttpException(400, 'Bad channel');
             }
-
-            foreach ($data['channel'] as $key => $value) {
-                if ($key == 'item') {
-                    $items = $value;
-                }
-            }
+            $items = $data['channel']['item'];
 
 
             \Yii::$app->cache->set($cachekey, $items, env('RSS_INTERVAL', 3600));
@@ -58,5 +56,6 @@ class RssItem
 
         return $items;
     }
+
 
 }

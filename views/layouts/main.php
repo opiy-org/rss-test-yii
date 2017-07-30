@@ -17,7 +17,8 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -28,8 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => env('RSS_CHANNEL'),
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => env('RSS_NAME'),
+        'brandUrl' => env('RSS_CHANNEL'),
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -37,7 +38,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+            ['label' => Yii::t('app', 'Home'), 'url' => Yii::$app->homeUrl],
         ],
     ]);
     NavBar::end();
@@ -53,9 +54,19 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <div class="row">
+            <div class="col-md-4 text-left">
+                <p><?= env('APP_NAME') ?> &copy; <?= date('Y') ?></p>
+            </div>
+            <div class="col-md-4 text-center">
+                <p>
+                    <a href="#" class="uplink"><?= Yii::t('app', 'Up!') ?></a>
+                </p>
+            </div>
+            <div class="col-md-4 text-right">
+                <p><?= Yii::powered() ?></p>
+            </div>
+        </div>
     </div>
 </footer>
 

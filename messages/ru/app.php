@@ -7,4 +7,5 @@ return [
     'Email' => 'Е-мейл',
     'Description' => 'Комментарий',
     'Created At' => 'Дата',
+    'Up!' => 'Вверх!'
 ];

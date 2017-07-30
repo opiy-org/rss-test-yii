@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Comment'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Comment'), ['class' => 'btn btn-success btn-sm']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 

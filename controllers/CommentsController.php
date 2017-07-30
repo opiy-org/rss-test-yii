@@ -37,12 +37,17 @@ class CommentsController extends Controller
         /** @var Comment $model */
         $model = new Comment();
 
+        //get guid from _GET or from _POST
         if ($guid != null) {
             $model->guid = trim($guid);
         }
-        $guid = $model->guid;
 
+
+        //if model saved successfully - create new
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $guid = $model->guid;
+
             $model = new Comment();
             $model->guid = $guid;
         }

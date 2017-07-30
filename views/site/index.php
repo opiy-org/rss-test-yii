@@ -4,15 +4,14 @@
 
 use yii\widgets\ListView;
 
-$this->title = env('RSS_CHANNEL');
+$this->title = env('APP_NAME');
 ?>
 
 <div class="site-index">
     <div class="body-content">
         <?php \yii\widgets\Pjax::begin() ?>
         <?php
-
-        echo ListView::widget(['dataProvider' => $dataprovider, 'itemView' => 'item', 'layout' => "{items} \n {pager}"]);
+            echo ListView::widget(['dataProvider' => $dataprovider, 'itemView' => 'item', 'layout' => "{items} \n {pager}"]);
         ?>
         <?php \yii\widgets\Pjax::end() ?>
     </div>

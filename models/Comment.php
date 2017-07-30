@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\HtmlPurifier;
 
 /**
  * This is the model class for table "comment".
@@ -30,9 +31,15 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['guid', 'email', 'description'], 'required'],
+            [['guid', 'email'], 'required'],
             [['guid'], 'string', 'max' => 255],
+
+            ['description', 'filter', 'filter' => function ($value) {
+                return HtmlPurifier::process($value);
+            }],
+            [['description'], 'required'],
             [['description'], 'string', 'min' => 4],
+
             [['created_at'], 'safe'],
 
             [['email'], 'string', 'max' => 255],

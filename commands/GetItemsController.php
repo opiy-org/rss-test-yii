@@ -1,13 +1,7 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
 namespace app\commands;
 
-use app\models\RssItem;
+use app\models\RssChannel;
 use yii\console\Controller;
 
 
@@ -19,9 +13,12 @@ class GetItemsController extends Controller
      */
     public function actionIndex()
     {
-        $rssItem = new RssItem();
-        $rssItem->cache = false;
-        $items = $rssItem->getItems();
+        /** @var RssChannel $rss */
+        $rss = new RssChannel();
+        $rss->cache = false;
+
+        /** @var array $items */
+        $items = $rss->getItems();
         echo count($items);
     }
 }

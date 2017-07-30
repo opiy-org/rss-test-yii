@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\RssItem;
+use app\models\RssChannel;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -23,11 +23,10 @@ class SiteController extends Controller
     }
 
 
-
     public function actionIndex()
     {
         /** @var array $items RSS channel items */
-        $items = (new RssItem())->getItems();
+        $items = (new RssChannel())->getItems();
 
         ArrayHelper::multisort($items, function ($item) {
             return $item->pubDate;
