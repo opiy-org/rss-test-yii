@@ -29,7 +29,7 @@ class SiteController extends Controller
         $items = (new RssChannel())->getItems();
 
         ArrayHelper::multisort($items, function ($item) {
-            return $item->pubDate;
+            return $item['pubDate'];
         }, SORT_DESC);
 
         $dataprovider = new ArrayDataProvider([
